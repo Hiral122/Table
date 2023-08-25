@@ -44,7 +44,7 @@ const App = () => {
         "https://e7.pngegg.com/pngimages/354/583/png-clipart-shoe-sneakers-running-shoes-white-sport.png",
     },
   ]);
- 
+//  increment
   let incrqty = (shoeId) => {
     setShoes((prevState) => {
       return prevState.map((shoe) => {
@@ -59,6 +59,7 @@ const App = () => {
       });
     });
   };
+  //decrement
   let decrqty = (shoeId) => {
     setShoes((prevState) => {
       return prevState.map((shoe) => {
@@ -75,7 +76,26 @@ const App = () => {
       });
     });
   };
+
+  //delete
+  let deleteShoes = (shoeId)=>[
+    setShoes((prevState)=>{
+return prevState.filter(shoe => shoe.id !== shoeId)
+    })
+
+
+  ]
+  let calTotal =()=>{
+    let total=0;
+    for(let shoe of shoes)
+    {
+      total+=(shoe.qty * shoe.price);
+    }
+    return total
+  }
   
+
+
   return (
     <div className="container">
       <table className="table mt-5">
@@ -128,7 +148,7 @@ const App = () => {
                 </svg>
               </td>
               <td>
-                <button className="btn btn-danger">
+                <button className="btn btn-danger" onClick={()=>deleteShoes(shoe.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -144,6 +164,12 @@ const App = () => {
               <td>{shoe.total}</td>
             </tr>
           ))}
+          <tr>
+          <td colSpan={5 }>  </td>
+          <td className="text-success fs-5 fw-bold">Grand Total :
+          </td>
+          <td className="fw-bold fs-2">{calTotal()}</td>
+        </tr>
         </tbody>
       </table>
     </div>
